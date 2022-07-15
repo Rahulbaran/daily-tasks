@@ -1,0 +1,39 @@
+@use "../abstracts" as a;
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  min-block-size: 100vh;
+  scroll-behavior: smooth;
+
+  @include a.breakpoint(medium) {
+    font-size: 81.25%;
+  }
+  @include a.breakpoint(large) {
+    font-size: 100%;
+  }
+  @include a.breakpoint(xlarge) {
+    font-size: 118.25%;
+  }
+
+  @media (prefers-reduced-motion) {
+    scroll-behavior: auto;
+  }
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+:root {
+  --font-stack-poppins: "Poppins", sans-serif;
+  --font-stack-roboto-slab: "Roboto Slab", "Ubuntu";
+}
+
+body {
+  min-block-size: 100vh;
+}

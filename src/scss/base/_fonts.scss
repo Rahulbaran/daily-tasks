@@ -1,0 +1,21 @@
+@mixin fontFace($family, $weight, $src) {
+  font-family: $family;
+  font-weight: $weight;
+  src: url($src);
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  @include fontFace("Poppins", normal, "../assets/fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  @include fontFace(
+    "Roboto Slab",
+    600,
+    "../assets/fonts/RobotoSlab-SemiBold.ttf"
+  );
+}
+@font-face {
+  @include fontFace("Roboto Slab", bold, "../assets/fonts/RobotoSlab-Bold.ttf");
+}
