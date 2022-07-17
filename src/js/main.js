@@ -1,4 +1,5 @@
 import "../scss/main.scss";
+import * as func from "./functions";
 
 // Selectors
 const $listField = document.querySelector(".list__form input");
@@ -11,19 +12,16 @@ let [listId, itemId] = [0, 0];
 const appData = {
   list: [],
   listIds: [],
-  listItemIds: {}
+  listItemIds: new Map()
 };
 
-// Function for setting focus to list field
-const listFieldFunc = () => {
-  $listField.value = "";
-  $listField.focus();
-};
+/*------------- Displaying list Data from localStorage on window loading -------------*/
+window.addEventListener("load", () => {
+  // Setting Focus to list Field
+  func.listFieldFunc();
+});
 
-// Function for modifying String
-const modifyString = str => str[0].toUpperCase() + str.slice(1).toLowerCase();
-
-/*--------------- Event Handler for list input button ---------------*/
+/*----------------- Event Handler for list input button -------------------*/
 $listSubmitBtn.addEventListener("click", e => {
   // 1) Prevent Default Behavior
   e.preventDefault();
@@ -34,7 +32,7 @@ $listSubmitBtn.addEventListener("click", e => {
   // 3) Check for truthy value of listName
   if (listName && listName.length <= 20) {
     // i) Modify List Name
-    listName = modifyString(listName);
+    listName = func.modifyString(listName);
 
     // iii) Store list index in appData.listIds array
     appData.listIds.push(listId);
@@ -44,7 +42,7 @@ $listSubmitBtn.addEventListener("click", e => {
     localStorage.setItem("list", JSON.stringify(appData.list));
 
     // iii) Empty input field
-    listFieldFunc();
+    func.listFieldFunc();
 
     // iv) Display List in UI
     $listContainer.append($listTemplate.content.cloneNode(true));
@@ -57,10 +55,32 @@ $listSubmitBtn.addEventListener("click", e => {
   }
 });
 
+/*----------- EventHandler for List Container When list is deleted -----------*/
+$listContainer.addEventListener("click", e => {
+  if (e.target.matches(".bx-trash")) {
+    // i) Get the listId
+    const listId = +e.target.closest(".list").id.split("-")[1];
+
+    // ii) Find Index of the list
+    const listIndex = appData.listIds.indexOf(listId);
+
+    // iii) Remove listId, listItems Ids & list from appData Object
+    appData.listIds.splice(listIndex, 1);
+    appData.listItemIds.delete(listId);
+    appData.list.shift(appData.list[listIndex]);
+
+    // iv) Update localStorage
+    localStorage.setItem("list", JSON.stringify(appData));
+
+    // v) Update UI
+    e.target.closest(".list").remove();
+  }
+});
+
 /*----------- EventHandler for List Container When new item is added -----------*/
 $listContainer.addEventListener("click", function (e) {
   const $itemInputField = e.target.previousElementSibling;
-  let itemName = e.target.previousElementSibling?.value.trim();
+  let itemName = e.target.previousElementSibling?.value?.trim();
 
   // Check if item add button is clicked & itemName is truthy
   if (
@@ -69,17 +89,17 @@ $listContainer.addEventListener("click", function (e) {
     itemName.length <= 30
   ) {
     // i) Modify itemName
-    itemName = modifyString(itemName);
+    itemName = func.modifyString(itemName);
 
     // ii)  Get list id
     const itemsListId = +e.target.closest(".list").id.split("-")[1];
 
     // iii) Store itemId in appData.listItemIds
-    if (appData.listItemIds[itemsListId])
-      appData.listItemIds[itemsListId].push(itemId);
+    if (appData.listItemIds.has(itemsListId))
+      appData.listItemIds.get(itemsListId).push(itemId);
     else {
-      appData.listItemIds[itemsListId] = [];
-      appData.listItemIds[itemsListId].push(itemId);
+      appData.listItemIds.set(itemsListId, []);
+      appData.listItemIds.get(itemsListId).push(itemId);
     }
 
     // iv) Store item in localStorage & appData.list array both
@@ -101,10 +121,4 @@ $listContainer.addEventListener("click", function (e) {
     // vii) Increase item id by 1
     itemId++;
   }
-});
-
-/*------------- Displaying list Data from localStorage on window loading -------------*/
-window.addEventListener("load", () => {
-  // Setting Focus to list Field
-  listFieldFunc();
 });
