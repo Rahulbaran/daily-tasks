@@ -1,0 +1,38 @@
+@use "../abstracts" as a;
+
+$justify: "flex-start", "flex-end", "center", "space-between", "space-around",
+  "space-evenly", "stretch", "baseline";
+$alignments: "baseline", "flex-start", "flex-end", "stretch", "center";
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+
+  &-nowrap {
+    flex-wrap: nowrap;
+  }
+
+  &-column {
+    flex-direction: column;
+  }
+  &-row {
+    flex-direction: row;
+  }
+}
+
+@each $just in $justify {
+  .justify-#{$just} {
+    justify-content: #{$just};
+  }
+}
+@each $align in $alignments {
+  .align-#{$align} {
+    align-items: #{$align};
+  }
+}
+
+@for $gap from 1 through 10 {
+  .gap-#{$gap} {
+    gap: a.$base-gap * $gap;
+  }
+}

@@ -1,0 +1,23 @@
+@use "../abstracts" as a;
+
+.btn {
+  border-radius: a.$base-border-radius;
+  padding: a.$base-padding a.$base-padding * 1.5;
+  font-size: inherit;
+  font-family: var(--font-stack-roboto-slab);
+  text-transform: uppercase;
+  background-image: linear-gradient(
+    30deg,
+    adjust-hue(a.$yellow, -15deg),
+    adjust-hue(a.$yellow, -20deg)
+  );
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  i {
+    font-size: a.$base-font-size * 1.1;
+  }
+}

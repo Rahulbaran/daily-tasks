@@ -1,0 +1,13 @@
+@use "../abstracts" as a;
+
+.grid {
+  display: grid;
+  align-items: flex-start;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: a.$base-gap * 6 a.$base-gap * 4;
+
+  @include a.breakpoint(large) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,53 @@
+@use "../abstracts" as a;
+
+.list {
+  &--container {
+    margin-block-start: a.$base-margin * 10;
+
+    button:not(.btn) {
+      background-color: transparent;
+      color: adjust-hue(a.$red, 10deg);
+      border: none;
+      padding: a.$base-padding * 0.25;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  border: 1px solid adjust-hue(a.$yellow, -11deg);
+  border-radius: a.$base-border-radius * 0.2;
+  inline-size: 25rem;
+  margin-inline: auto;
+  box-shadow: 0 0 30px transparentize(adjust-hue(a.$blue, 20deg), 0.8);
+
+  &__heading {
+    padding: a.$base-padding * 2;
+    border-bottom: 1px solid adjust-hue(a.$yellow, -11deg);
+  }
+}
+
+.item__form {
+  align-self: center;
+  margin-block: a.$base-margin * 3;
+}
+
+.items__wrapper {
+  max-block-size: 12.7rem;
+  overflow-y: auto;
+
+  .item {
+    padding: a.$base-padding * 0.7 a.$base-padding;
+    background-color: lighten(a.$blue, 42%);
+
+    &:not(:last-child) {
+      border-block-end: 0.25px solid lighten(a.$grey, 10%);
+    }
+  }
+
+  button {
+    color: a.$red;
+  }
+}

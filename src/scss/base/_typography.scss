@@ -1,0 +1,29 @@
+@use "../abstracts" as a;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-stack-roboto-slab);
+  color: adjust-hue(a.$yellow, -15deg);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 0.9;
+  letter-spacing: 0.5px;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+.container {
+  inline-size: min(90%, 992px);
+  margin-inline: auto;
+}

@@ -5,6 +5,8 @@ html {
   box-sizing: border-box;
   min-block-size: 100vh;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: darken(adjust-hue(a.$grey, -20deg), 10%) a.$white;
 
   @include a.breakpoint(medium) {
     font-size: 81.25%;
@@ -34,6 +36,30 @@ html {
   --font-stack-roboto-slab: "Roboto Slab", "Ubuntu";
 }
 
+::selection {
+  background-color: adjust-hue(a.$yellow, -10deg);
+  color: a.$black;
+}
+
+::-webkit-scrollbar {
+  block-size: 9px;
+  inline-size: 9px;
+
+  &-track {
+    box-shadow: 1px 0 5px transparentize(a.$black, 0.8);
+    background-color: a.$white;
+  }
+
+  &-thumb {
+    background-color: darken(adjust-hue(a.$grey, -20deg), 10%);
+  }
+}
+
 body {
   min-block-size: 100vh;
+  font: map-get(a.$font-weights, regular) a.$base-font-size
+    var(--font-stack-poppins);
+  line-height: a.$base-lh;
+  background-color: darken(desaturate(a.$blue, 45%), 45%);
+  padding: a.$base-padding * 4;
 }

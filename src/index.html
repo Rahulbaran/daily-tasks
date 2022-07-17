@@ -19,6 +19,61 @@
     />
   </head>
   <body>
-    <h1>Hello World</h1>
+    <!------------------- List Header ------------------->
+    <header class="header flex flex-column align-center gap-4">
+      <h1>Create New List</h1>
+
+      <form class="form list__form flex">
+        <input
+          type="text"
+          name="list-form"
+          required
+          placeholder="list name"
+          title="list name should be 5 to 20 characters long"
+        />
+
+        <button
+          type="submit"
+          class="btn flex gap-1 align-center"
+          title="Create list"
+        >
+          <i class="bx bx-pencil"></i>
+          <span>Create</span>
+        </button>
+      </form>
+    </header>
+
+    <!------------------ Lists Container ------------------>
+    <main class="container list--container grid"></main>
+
+    <!----------------- List Template ------------------>
+    <template class="list__template">
+      <div class="list flex flex-column">
+        <div class="list__heading flex align-center justify-space-between">
+          <h2></h2>
+          <button title="Delete List"><i class="bx bx-trash bx-sm"></i></button>
+        </div>
+        <div class="form item__form flex">
+          <input
+            type="text"
+            name="item-form"
+            required
+            placeholder="item name"
+            title="item name should be 5 to 30 characters long"
+          />
+          <button class="btn btn__item--add" title="Add item">Add</button>
+        </div>
+
+        <div class="items__wrapper"></div>
+      </div>
+    </template>
+
+    <!---------------- List Item Template --------------->
+    <template class="item__template">
+      <div class="item flex justify-space-between align-center">
+        <p></p>
+        <button><i class="bx bx-minus-circle bx-sm"></i></button>
+      </div>
+    </template>
   </body>
 </html>

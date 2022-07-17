@@ -8,5 +8,11 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "rules": {}
+  "rules": {
+    "arrow-parens": "off",
+    "func-names": "off",
+    "prefer-arrow-callback": "off",
+    "callback-return": "off",
+    "no-useless-escape": "off"
+  }
 }
