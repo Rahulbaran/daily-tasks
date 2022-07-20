@@ -4,6 +4,7 @@ import * as func from "./functions";
 // Selectors
 const $listField = document.querySelector(".list__form input");
 const $listSubmitBtn = document.querySelector(".list__form button");
+const $dialogContainer = document.querySelector(".dialog--container");
 const $listContainer = document.querySelector(".list--container");
 const $listTemplate = document.querySelector(".list__template");
 const $itemTemplate = document.querySelector(".item__template");
@@ -95,33 +96,54 @@ $listSubmitBtn.addEventListener("click", e => {
   }
 });
 
-/*----------- EventHandler for List Container When list is deleted -----------*/
+/*----------- EventHandler for List Container When delete icon is clicked -----------*/
+let listToDelete;
 $listContainer.addEventListener("click", e => {
   if (e.target.matches(".bx-trash")) {
-    // i) Get the listId
-    const listId = +e.target.closest(".list").id.split("-")[1];
+    // i) Display dialog box with list name
+    $dialogContainer.classList.add("dialog-visible");
+    $dialogContainer.querySelector("p strong").textContent = e.target
+      .closest(".list")
+      .querySelector("h2").textContent;
 
-    // ii) Find Index of the list
-    const listIndex = appData.listIds.indexOf(listId);
-
-    // iii) Remove listId, listItems Ids & list from appData Object
-    appData.listIds.splice(listIndex, 1);
-    listItemIds.delete(String(listId));
-    appData.list.splice(listIndex, 1);
-
-    // iv) Update localStorage
-    func.storeJson("list", appData);
-    func.storeJson("listItemIds", Object.fromEntries(listItemIds));
-
-    // v) Update UI
-    e.target.closest(".list").remove();
+    // ii) Assigning list to listToDelete variable
+    listToDelete = e.target.closest(".list");
   }
 });
 
+/*------------------ Event Handler for Delete Button  ------------------*/
+$dialogContainer.querySelector(".btn__delete").addEventListener("click", () => {
+  // i) Get the listId
+  const listId = +listToDelete.id.split("-")[1];
+
+  // ii) Find Index of the list
+  const listIndex = appData.listIds.indexOf(listId);
+
+  // iii) Remove listId, listItems Ids & list from appData Object
+  appData.listIds.splice(listIndex, 1);
+  listItemIds.delete(String(listId));
+  appData.list.splice(listIndex, 1);
+
+  // iv) Update localStorage
+  func.storeJson("list", appData);
+  func.storeJson("listItemIds", Object.fromEntries(listItemIds));
+
+  // v) Update UI
+  listToDelete.remove();
+
+  // vi) Hide dialog box
+  $dialogContainer.classList.remove("dialog-visible");
+});
+
+/*-----------------  Event Handler for Cancel Button ------------------*/
+$dialogContainer.querySelector(".btn__cancel").addEventListener("click", () => {
+  $dialogContainer.classList.remove("dialog-visible");
+});
+
 /*----------- EventHandler for List Container When new item is added -----------*/
-$listContainer.addEventListener("click", function (e) {
+$listContainer.addEventListener("click", e => {
   const $itemInputField = e.target.previousElementSibling;
-  let itemName = e.target.previousElementSibling?.value?.trim();
+  let itemName = e.target.previousElementSibling?.value.trim();
 
   // Check if item add button is clicked & itemName is truthy
   if (
@@ -160,3 +182,10 @@ $listContainer.addEventListener("click", function (e) {
     itemId++;
   }
 });
+
+/*---------------- Event Handler for list Container When item of a list is deleted  -----------------*/
+// $listContainer.addEventListener("click", e => {
+//   if (e.target.matches(".bx-minus-circle")) {
+//     console.log(e);
+//   }
+// });

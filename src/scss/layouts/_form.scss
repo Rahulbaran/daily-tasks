@@ -4,7 +4,7 @@
   border: 1px solid adjust-hue(a.$yellow, -11deg);
   border-radius: a.$base-border-radius;
 
-  [type="text"] {
+  input {
     font-family: inherit;
     font-size: inherit;
     padding: a.$base-padding * 0.5 a.$base-padding;

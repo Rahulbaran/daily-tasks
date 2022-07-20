@@ -2,12 +2,12 @@
 
 .grid {
   display: grid;
-  align-items: flex-start;
+  place-items: flex-start center;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  gap: a.$base-gap * 6 a.$base-gap * 4;
+  gap: a.$base-gap * 6;
 
-  @include a.breakpoint(large) {
+  @include a.breakpoint(xlarge) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
