@@ -11,10 +11,36 @@
     adjust-hue(a.$yellow, -15deg),
     adjust-hue(a.$yellow, -20deg)
   );
+  background-color: adjust-hue(a.$yellow, -15deg);
+  border: 2px solid darken(desaturate(a.$blue, 45%), 45%);
+  letter-spacing: 0.5px;
 
   &:hover {
     cursor: pointer;
     opacity: 0.8;
+  }
+
+  &__delete,
+  &__cancel {
+    border: none;
+    letter-spacing: 1px;
+    padding: a.$base-padding * 1.25 a.$base-padding * 2;
+  }
+
+  &__delete {
+    background-image: linear-gradient(
+      30deg,
+      adjust-hue(a.$red, 10deg),
+      adjust-hue(a.$red, 15deg)
+    );
+  }
+
+  &__cancel {
+    background-image: linear-gradient(
+      30deg,
+      adjust-hue(a.$grey, 10deg),
+      adjust-hue(a.$grey, 15deg)
+    );
   }
 
   i {

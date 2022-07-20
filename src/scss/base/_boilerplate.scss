@@ -62,4 +62,5 @@ body {
   line-height: a.$base-lh;
   background-color: darken(desaturate(a.$blue, 45%), 45%);
   padding: a.$base-padding * 4;
+  position: relative;
 }
