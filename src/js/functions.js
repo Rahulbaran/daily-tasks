@@ -159,3 +159,25 @@ export const addNewItem = (e, itemName) => {
   // vii) Increase item id by 1
   itemId++;
 };
+
+// Function for deleting item
+export const deleteItem = e => {
+  // i) Get current list id & item id
+  const curListId = +e.target.closest(".list").id.split("-")[1];
+  const curItemId = +e.target.closest(".item").id.split("-")[1];
+
+  // ii) Get indexes of both listid & itemid
+  const listIndex = appData.listIds.indexOf(curListId);
+  const itemIndex = listItemIds.get(String(curListId)).indexOf(curItemId);
+
+  // iii) Delete item from appData.list & itemId from listItemIds
+  appData.list[listIndex].items.splice(itemIndex, 1);
+  listItemIds.get(String(curListId)).splice(itemIndex, 1);
+
+  // iv) Update localStorage
+  storeJson("list", appData);
+  storeJson("listItemIds", Object.fromEntries(listItemIds));
+
+  // v) Remove item from UI
+  e.target.closest(".item").remove();
+};

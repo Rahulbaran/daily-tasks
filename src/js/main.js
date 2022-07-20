@@ -48,8 +48,7 @@ s.listContainer.addEventListener("click", e => {
 
   // Check if item delete icon is clicked
   else if (e.target.matches(".bx-minus-circle")) {
-    const curListId = +e.target.closest(".list").id.split("-")[1];
-    const curItemId = +e.target.closest(".item").id.split("-")[1];
+    func.deleteItem(e);
   }
 });
 
